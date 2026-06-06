@@ -1,0 +1,216 @@
+/* ─── Google Font Import ─── */
+@import url('https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;500;600;700;800;900&display=swap');
+
+@import "tailwindcss";
+
+/* ─── Tailwind v4 Theme Configuration ─── */
+@theme {
+  /* Brand Colors — Premium Warm Palette */
+  --color-brand-red: #c1121f;
+  --color-brand-red-dark: #9b0f1a;
+  --color-brand-red-light: #e63946;
+  --color-brand-black: #0f0f0f;
+  --color-brand-charcoal: #1a1a1a;
+  --color-brand-gold: #c9a96e;
+  --color-brand-gold-light: #e2cc9c;
+  --color-brand-gold-dark: #a68845;
+  --color-brand-cream: #faf8f5;
+  --color-brand-warm-gray: #f5f0eb;
+  --color-brand-ivory: #fffdf9;
+
+  /* Fonts */
+  --font-cairo: 'Cairo', sans-serif;
+
+  /* Animations — only tokens actually used in components */
+  --animate-shimmer: shimmer 2s linear infinite;
+}
+
+/* ─── Keyframes (only those referenced by components) ─── */
+@keyframes shimmer {
+  0% { background-position: -200% 0; }
+  100% { background-position: 200% 0; }
+}
+
+@keyframes ken-burns {
+  0% { transform: scale(1); }
+  100% { transform: scale(1.1); }
+}
+
+@keyframes grain {
+  0%, 100% { transform: translate(0, 0); }
+  10% { transform: translate(-5%, -10%); }
+  20% { transform: translate(-15%, 5%); }
+  30% { transform: translate(7%, -25%); }
+  40% { transform: translate(-5%, 25%); }
+  50% { transform: translate(-15%, 10%); }
+  60% { transform: translate(15%, 0%); }
+  70% { transform: translate(0%, 15%); }
+  80% { transform: translate(3%, 35%); }
+  90% { transform: translate(-10%, 10%); }
+}
+
+
+
+/* ─── Base Styles ─── */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+body {
+  font-family: var(--font-cairo);
+  background-color: var(--color-brand-cream);
+  color: var(--color-brand-black);
+  overflow-x: hidden;
+  line-height: 1.7;
+}
+
+/* ─── Premium Scrollbar ─── */
+::-webkit-scrollbar {
+  width: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--color-brand-charcoal);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--color-brand-gold);
+  border-radius: 8px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--color-brand-gold-light);
+}
+
+/* ─── Selection Color ─── */
+::selection {
+  background-color: rgba(201, 169, 110, 0.25);
+  color: var(--color-brand-black);
+}
+
+/* ─── Glassmorphism Utilities ─── */
+.glass {
+  background: rgba(255, 255, 255, 0.08);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+}
+
+.glass-dark {
+  background: rgba(0, 0, 0, 0.3);
+  backdrop-filter: blur(24px);
+  -webkit-backdrop-filter: blur(24px);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+
+
+/* ─── Film Grain Overlay ─── */
+.grain::after {
+  content: "";
+  position: absolute;
+  inset: -200%;
+  width: 400%;
+  height: 400%;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
+  animation: grain 8s steps(10) infinite;
+  pointer-events: none;
+  z-index: 1;
+  opacity: 0.4;
+}
+
+/* ─── Text Gradient Utilities ─── */
+.text-gradient-gold {
+  background: linear-gradient(135deg, var(--color-brand-gold) 0%, var(--color-brand-gold-light) 50%, var(--color-brand-gold) 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+
+
+/* ─── Premium Card Styles ─── */
+.premium-card {
+  background: white;
+  border-radius: 24px;
+  border: 1px solid rgba(0, 0, 0, 0.04);
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.04), 0 8px 32px rgba(0, 0, 0, 0.04);
+  transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.premium-card:hover {
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.06), 0 20px 60px rgba(0, 0, 0, 0.1);
+  transform: translateY(-4px);
+}
+
+/* ─── Section Spacing ─── */
+.section-padding {
+  padding-top: clamp(4rem, 8vw, 8rem);
+  padding-bottom: clamp(4rem, 8vw, 8rem);
+}
+
+
+
+/* ─── Section Dividers ─── */
+.section-divider-gold {
+  position: relative;
+}
+
+.section-divider-gold::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(201, 169, 110, 0.25), transparent);
+}
+
+
+
+/* ─── Smooth Focus States ─── */
+button:focus-visible,
+a:focus-visible {
+  outline: 2px solid var(--color-brand-gold);
+  outline-offset: 2px;
+  border-radius: 8px;
+}
+
+/* ─── Reduced Motion ─── */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+/* ─── Print Styles ─── */
+@media print {
+  body {
+    background: white !important;
+    color: black !important;
+  }
+  .glass, .glass-dark, .glass-light {
+    background: transparent !important;
+    backdrop-filter: none !important;
+  }
+}
+
+/* ─── Scrollbar Hide ─── */
+.scrollbar-hide {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+.scrollbar-hide::-webkit-scrollbar {
+  display: none;
+}
+
