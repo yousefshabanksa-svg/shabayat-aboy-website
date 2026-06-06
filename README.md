@@ -111,8 +111,8 @@ Message is URL-encoded → opens wa.me/{number}?text={message}
 
 ```bash
 # Clone the repository
-git clone https://github.com/YousefShksa/shabayat-aboy.git
-cd shabayat-aboy
+git clone https://github.com/yousefshabanksa-svg/shabayat-aboy-website.git
+cd shabayat-aboy-website
 
 # Install dependencies
 npm install
