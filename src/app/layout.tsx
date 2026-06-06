@@ -93,6 +93,11 @@ export const metadata: Metadata = {
   publisher: "شعبيات ابوي",
   category: "restaurant",
   classification: "Restaurant, Food & Dining",
+
+  /* ── Search Console Verification ── */
+  verification: {
+    google: "MBhSF4sFQH1ooDGoAhc8Z00X1x6RSR7kcw1qADN4HCM",
+  },
 };
 
 /* ─── Viewport & Theme Color (separate export per Next.js 14+ requirement) ─── */
