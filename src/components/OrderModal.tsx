@@ -2,6 +2,7 @@
 
 import { useState, useEffect, useCallback } from "react";
 import { motion, AnimatePresence } from "framer-motion";
+import { trackProductAdded } from "@/lib/analytics";
 
 interface OrderModalProps {
   isOpen: boolean;
@@ -50,6 +51,7 @@ export default function OrderModal({ isOpen, onClose, itemName, unitPrice, onAdd
   }, []);
 
   const handleConfirm = useCallback(() => {
+    trackProductAdded(itemName, "", quantity, unitPrice);
     onAddToCart(itemName, unitPrice, quantity);
     onClose();
   }, [itemName, unitPrice, quantity, onAddToCart, onClose]);

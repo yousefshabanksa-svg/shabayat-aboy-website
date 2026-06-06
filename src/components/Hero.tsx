@@ -4,6 +4,7 @@ import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import Image from "next/image";
 import { openWhatsAppInquiry } from "@/utils/whatsapp";
+import { trackCTAClick, trackWhatsAppInquiry } from "@/lib/analytics";
 import { useCart } from "@/context/CartContext";
 import StarRating from "@/components/ui/StarRating";
 import AnimatedCounter from "@/components/ui/AnimatedCounter";
@@ -257,6 +258,7 @@ export default function Hero() {
             {/* Primary */}
             <motion.a
               href="#menu"
+              onClick={() => trackCTAClick("اطلب الآن", "Hero")}
               className="group relative inline-flex items-center gap-3 bg-brand-red hover:bg-brand-red-dark text-white font-bold text-lg px-10 py-5 rounded-2xl overflow-hidden transition-all duration-300 shadow-2xl shadow-brand-red/30 hover:shadow-brand-red/50"
               whileHover={{ y: -3, scale: 1.02 }}
               whileTap={{ scale: 0.97 }}
@@ -272,7 +274,7 @@ export default function Hero() {
 
             {/* Secondary */}
             <motion.button
-              onClick={openWhatsAppInquiry}
+              onClick={() => { trackWhatsAppInquiry(); trackCTAClick("تواصل معنا", "Hero"); openWhatsAppInquiry(); }}
               className="inline-flex items-center gap-3 glass text-white/80 hover:text-white font-semibold text-lg px-10 py-5 rounded-2xl transition-all duration-300 hover:bg-white/15 cursor-pointer"
               whileHover={{ y: -3 }}
               whileTap={{ scale: 0.97 }}

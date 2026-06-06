@@ -6,10 +6,12 @@ import CTABanner from "@/components/CTABanner";
 import LocationFooter from "@/components/LocationFooter";
 import FloatingWhatsApp from "@/components/FloatingWhatsApp";
 import CartDrawer from "@/components/CartDrawer";
+import ScrollDepthTracker from "@/components/ScrollDepthTracker";
 
 export default function Home() {
   return (
     <main>
+      <ScrollDepthTracker />
       <Hero />
       <WhyChooseUs />
       <MenuBoard />

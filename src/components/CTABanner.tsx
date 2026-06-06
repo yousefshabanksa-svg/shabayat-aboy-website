@@ -2,6 +2,7 @@
 
 import { motion } from "framer-motion";
 import { openWhatsAppInquiry } from "@/utils/whatsapp";
+import { trackCTAClick, trackWhatsAppInquiry } from "@/lib/analytics";
 
 export default function CTABanner() {
   return (
@@ -51,7 +52,7 @@ export default function CTABanner() {
           {/* CTA Buttons */}
           <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
             <motion.button
-              onClick={openWhatsAppInquiry}
+              onClick={() => { trackCTAClick("اطلب عبر واتساب", "CTA Banner"); trackWhatsAppInquiry(); openWhatsAppInquiry(); }}
               className="group relative inline-flex items-center gap-3 bg-brand-red hover:bg-brand-red-dark text-white font-bold text-lg px-10 py-5 rounded-2xl overflow-hidden transition-all duration-300 shadow-2xl shadow-brand-red/30 hover:shadow-brand-red/50 cursor-pointer"
               whileHover={{ y: -3, scale: 1.02 }}
               whileTap={{ scale: 0.97 }}
@@ -67,6 +68,7 @@ export default function CTABanner() {
 
             <motion.a
               href="#location"
+              onClick={() => trackCTAClick("موقعنا", "CTA Banner")}
               className="inline-flex items-center gap-2.5 glass text-white/70 hover:text-white font-semibold text-lg px-10 py-5 rounded-2xl transition-all duration-300 hover:bg-white/15"
               whileHover={{ y: -3 }}
               whileTap={{ scale: 0.97 }}

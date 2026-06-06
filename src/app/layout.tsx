@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import "./globals.css";
 import { CartProvider } from "@/context/CartContext";
+import GoogleAnalytics from "@/components/GoogleAnalytics";
 
 export const metadata: Metadata = {
   title: "شعبيات ابوي | Dad's Delicacies",
@@ -26,6 +27,7 @@ export default function RootLayout({
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
       </head>
       <body className="bg-brand-cream font-cairo antialiased">
+        <GoogleAnalytics />
         <CartProvider>
           {children}
         </CartProvider>

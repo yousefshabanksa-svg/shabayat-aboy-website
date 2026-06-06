@@ -3,6 +3,7 @@
 import { useCallback, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { useCart } from "@/context/CartContext";
+import { trackCartOpened, trackCartCheckoutInitiated, trackCartCleared, trackProductRemoved, trackWhatsAppCheckoutClicked, trackWhatsAppOrderSubmitted } from "@/lib/analytics";
 
 const WHATSAPP_NUMBER = "966533158148";
 
@@ -19,8 +20,17 @@ export default function CartDrawer() {
     return () => { document.body.style.overflow = ""; };
   }, [isDrawerOpen]);
 
+  /* Track cart open */
+  useEffect(() => {
+    if (isDrawerOpen && items.length > 0) {
+      trackCartOpened(totalItems, subtotal);
+    }
+  }, [isDrawerOpen]); // eslint-disable-line react-hooks/exhaustive-deps
+
   const handleCheckout = useCallback(() => {
     if (items.length === 0) return;
+    trackCartCheckoutInitiated(totalItems, subtotal);
+    trackWhatsAppCheckoutClicked(totalItems, subtotal);
 
     const itemLines = items
       .map((item, i) => `${i + 1}- ${item.name} × ${item.quantity} = ${item.price * item.quantity} ريال`)
@@ -38,6 +48,7 @@ ${itemLines}
 
     const encoded = encodeURIComponent(message);
     window.open(`https://wa.me/${WHATSAPP_NUMBER}?text=${encoded}`, "_blank", "noopener,noreferrer");
+    trackWhatsAppOrderSubmitted(totalItems, subtotal);
     clearCart();
     closeDrawer();
   }, [items, subtotal, clearCart, closeDrawer]);
@@ -142,7 +153,7 @@ ${itemLines}
 
                 {/* Clear cart */}
                 <button
-                  onClick={clearCart}
+                  onClick={() => { trackCartCleared(totalItems, subtotal); clearCart(); }}
                   className="w-full py-3 text-sm text-gray-400 hover:text-brand-red font-semibold transition-colors cursor-pointer"
                 >
                   تفريغ السلة
@@ -182,7 +193,7 @@ function CartItemCard({
           <p className="text-sm text-gray-400 font-medium">{item.price} ريال للقطعة</p>
         </div>
         <button
-          onClick={() => onRemove(item.name)}
+          onClick={() => { trackProductRemoved(item.name, item.quantity); onRemove(item.name); }}
           className="flex-shrink-0 w-8 h-8 rounded-lg bg-red-50 hover:bg-red-100 flex items-center justify-center transition-colors cursor-pointer"
           aria-label={`حذف ${item.name}`}
         >

@@ -2,6 +2,7 @@
 
 import { motion } from "framer-motion";
 import { openWhatsAppInquiry } from "@/utils/whatsapp";
+import { trackWhatsAppInquiry, trackCTAClick } from "@/lib/analytics";
 
 /**
  * Floating WhatsApp button — fixed bottom-right with pulse animation.
@@ -11,7 +12,7 @@ export default function FloatingWhatsApp() {
   return (
     <motion.button
       id="floating-whatsapp"
-      onClick={openWhatsAppInquiry}
+      onClick={() => { trackWhatsAppInquiry(); trackCTAClick("واتساب", "Floating Button"); openWhatsAppInquiry(); }}
       aria-label="تواصل عبر واتساب"
       className="fixed bottom-6 right-6 z-50 flex items-center justify-center w-14 h-14 rounded-full bg-[#25D366] text-white shadow-lg shadow-[#25D366]/30 hover:shadow-xl hover:shadow-[#25D366]/50 transition-shadow duration-300 cursor-pointer group"
       initial={{ scale: 0, opacity: 0 }}

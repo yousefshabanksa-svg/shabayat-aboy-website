@@ -5,6 +5,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import Image from "next/image";
 import OrderModal from "@/components/OrderModal";
 import { useCart } from "@/context/CartContext";
+import { trackCategoryViewed, trackProductViewed } from "@/lib/analytics";
 
 /* ─── Types ─── */
 interface MenuItem {
@@ -273,9 +274,10 @@ export default function MenuBoard() {
   const [selectedItem, setSelectedItem] = useState({ name: "", price: 0 });
 
   const handleOrder = useCallback((name: string, price: number) => {
+    trackProductViewed(name, activeCategory.label, price);
     setSelectedItem({ name, price });
     setModalOpen(true);
-  }, []);
+  }, [activeCategory.label]);
 
   /* Cart */
   const { addItem, openDrawer } = useCart();
@@ -356,7 +358,7 @@ export default function MenuBoard() {
                 {categories.map((cat) => (
                   <button
                     key={cat.id}
-                    onClick={() => setActiveTab(cat.id)}
+                    onClick={() => { setActiveTab(cat.id); trackCategoryViewed(cat.label); }}
                     className={`relative flex items-center gap-2 px-6 py-3 rounded-2xl text-sm font-bold transition-all duration-300 cursor-pointer ${
                       activeTab === cat.id
                         ? "text-white shadow-lg"
