@@ -2,6 +2,7 @@ import type { Metadata, Viewport } from "next";
 import "./globals.css";
 import { CartProvider } from "@/context/CartContext";
 import GoogleAnalytics from "@/components/GoogleAnalytics";
+import StructuredData from "@/components/StructuredData";
 
 /* ─── Production URL (used by Next.js to resolve relative OG images, canonical, etc.) ─── */
 const SITE_URL = "https://resturaunt.vercel.app";
@@ -115,6 +116,7 @@ export default function RootLayout({
       <head>
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
+        <StructuredData />
       </head>
       <body className="bg-brand-cream font-cairo antialiased">
         <GoogleAnalytics />
